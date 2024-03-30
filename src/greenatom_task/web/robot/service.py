@@ -2,6 +2,7 @@
 
 from greenatom_task.web.robot import exceptions
 from greenatom_task.web.robot.adapters import ReportRepository, RobotFacade
+from greenatom_task.web.robot.dto import ReportRead
 from greenatom_task.web.robot.models import Report
 
 
@@ -32,6 +33,6 @@ class RobotService:
         started_at, duration = self.robot_facade.get_last_launch_data()
         await self.report_repo.create(Report(started_at=started_at, duration=duration))
 
-    async def get_robot_reports(self) -> list[Report]:
-        reports: list[Report] = await self.report_repo.get_all()
+    async def get_robot_reports(self) -> list[ReportRead]:
+        reports: list[ReportRead] = await self.report_repo.get_all()
         return reports

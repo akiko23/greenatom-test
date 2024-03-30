@@ -7,6 +7,7 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from greenatom_task.web.consts import DEFAULT_PATH_TO_ROBOT_SCRIPT
+from greenatom_task.web.robot.dto import ReportRead
 from greenatom_task.web.robot.models import Report
 
 
@@ -20,11 +21,14 @@ class ReportRepository:
         self.session.add(report)
         await self.session.commit()
 
-    async def get_all(self) -> list[Report]:
+    async def get_all(self) -> list[ReportRead]:
         stmt = select(Report)
         reports = await self.session.scalars(stmt)
 
-        return list(reports.all())
+        return [
+            ReportRead(id=report.id, started_at=report.started_at, duration=report.duration)
+            for report in reports.all()
+        ]
 
 
 class RobotFacade:

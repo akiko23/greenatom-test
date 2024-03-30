@@ -4,7 +4,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from greenatom_task.web.depends_stub import Stub
 from greenatom_task.web.dto import MsgResponse
 from greenatom_task.web.robot import exceptions
-from greenatom_task.web.robot.models import Report
+from greenatom_task.web.robot.dto import ReportRead
 from greenatom_task.web.robot.service import RobotService
 
 router = APIRouter(prefix="/robot", tags=["robot"])
@@ -38,6 +38,8 @@ async def stop_robot(robot_service: RobotService = Depends(Stub(RobotService))) 
 
 
 @router.get("/reports")
-async def get_robot_reports(robot_service: RobotService = Depends(Stub(RobotService))) -> list[Report]:
-    reports: list[Report] = await robot_service.get_robot_reports()
+async def get_robot_reports(
+        robot_service: RobotService = Depends(Stub(RobotService))
+) -> list[ReportRead]:
+    reports: list[ReportRead] = await robot_service.get_robot_reports()
     return reports

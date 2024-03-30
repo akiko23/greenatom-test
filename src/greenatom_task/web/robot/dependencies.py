@@ -10,7 +10,9 @@ def get_robot_facade() -> RobotFacade:
     return RobotFacade()
 
 
-def get_report_repository(session: AsyncSession = Depends(Stub(AsyncSession))) -> ReportRepository:
+def get_report_repository(
+        session: AsyncSession = Depends(Stub(AsyncSession))
+) -> ReportRepository:
     return ReportRepository(session=session)
 
 
