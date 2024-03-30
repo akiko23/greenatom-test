@@ -42,6 +42,10 @@ MANIFEST
 pip-log.txt
 pip-delete-this-directory.txt
 
+# Temp files
+robot_logs
+database.db
+
 # Unit test / coverage reports
 htmlcov/
 .tox/

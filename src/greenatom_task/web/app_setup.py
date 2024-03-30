@@ -7,12 +7,20 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from greenatom_task.web.config import AppConfig, Config, HttpServerConfig
 from greenatom_task.web.database.dependencies import get_session
-from greenatom_task.web.database.sa_utils import create_session_maker, create_engine
+from greenatom_task.web.database.sa_utils import (
+    create_engine,
+    create_session_maker,
+)
 from greenatom_task.web.depends_stub import Stub
 from greenatom_task.web.dto import MsgResponse
-from greenatom_task.web.robot.dependencies import get_robot_facade
-from greenatom_task.web.robot.facade import RobotFacade
+from greenatom_task.web.robot.adapters import ReportRepository, RobotFacade
+from greenatom_task.web.robot.dependencies import (
+    get_report_repository,
+    get_robot_facade,
+    get_robot_service,
+)
 from greenatom_task.web.robot.router import router as robot_router
+from greenatom_task.web.robot.service import RobotService
 
 router = APIRouter()
 
@@ -49,7 +57,10 @@ def initialise_dependencies(app: FastAPI, config: Config) -> None:
 
     app.dependency_overrides[Stub(AsyncSession)] = partial(get_session, session_factory)
     app.dependency_overrides[Stub(Config)] = lambda: config
+
     app.dependency_overrides[Stub(RobotFacade)] = get_robot_facade
+    app.dependency_overrides[Stub(ReportRepository)] = get_report_repository
+    app.dependency_overrides[Stub(RobotService)] = get_robot_service
 
 
 def create_app(app_cfg: AppConfig) -> FastAPI:
