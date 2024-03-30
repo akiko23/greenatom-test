@@ -3,14 +3,14 @@
 import asyncio
 import sys
 
-from greenatom_task.app_setup import (
+from greenatom_task.web.app_setup import (
     create_app,
     create_http_server,
     initialise_dependencies,
     initialise_routers,
 )
-from greenatom_task.config import load_config
-from greenatom_task.consts import DEFAULT_CONFIG_PATH
+from greenatom_task.web.config import load_config
+from greenatom_task.web.consts import DEFAULT_CONFIG_PATH
 
 
 async def main() -> None:

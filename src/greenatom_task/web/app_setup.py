@@ -1,24 +1,16 @@
 """Contain functions required for configuration of the project components."""
 
-
 import uvicorn
 from fastapi import APIRouter, FastAPI
-from pydantic import BaseModel
 
-from greenatom_task.config import AppConfig, Config, HttpServerConfig
-from greenatom_task.depends_stub import Stub
+from greenatom_task.web.config import AppConfig, Config, HttpServerConfig
+from greenatom_task.web.depends_stub import Stub
+from greenatom_task.web.dto import MsgResponse
+from greenatom_task.web.robot.dependencies import get_robot_facade
+from greenatom_task.web.robot.facade import RobotFacade
+from greenatom_task.web.robot.router import router as robot_router
 
 router = APIRouter()
-
-
-class MsgResponse(BaseModel):
-    """Represent a simple string message response.
-
-    Attributes:
-        msg (str): The message itself.
-    """
-
-    msg: str
 
 
 @router.get('/')
@@ -28,7 +20,7 @@ async def read_main() -> MsgResponse:
     Returns:
         MsgResponse: The message response instance.
     """
-    return MsgResponse(msg='Welcome to Sirius-journal API!')
+    return MsgResponse(msg='Welcome to Greenatom-task API!')
 
 
 def initialise_routers(app: FastAPI) -> None:
@@ -38,6 +30,7 @@ def initialise_routers(app: FastAPI) -> None:
         app (FastAPI): The FastAPI instance.
     """
     app.include_router(router)
+    app.include_router(robot_router)
 
 
 def initialise_dependencies(app: FastAPI, config: Config) -> None:
@@ -48,6 +41,7 @@ def initialise_dependencies(app: FastAPI, config: Config) -> None:
         config (Config): The config instance.
     """
     app.dependency_overrides[Stub(Config)] = lambda: config
+    app.dependency_overrides[Stub(RobotFacade)] = get_robot_facade
 
 
 def create_app(app_cfg: AppConfig) -> FastAPI:
