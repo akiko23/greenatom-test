@@ -3,7 +3,7 @@ requires = ["setuptools>=65.5.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "greenatom_test"
+name = "greenatom_task"
 version = "0.1.0"
 description = "Greenatom test task."
 authors = [
@@ -16,6 +16,9 @@ requires-python = ">=3.11"
 dependencies = [
     "fastapi==0.104.1",
     "uvicorn==0.24.0.post1",
+    "SQLAlchemy==2.0.29",
+    "alembic==1.12.1",
+    "toml==0.10.2",
 ]
 
 [project.optional-dependencies]
@@ -68,7 +71,7 @@ pydocstyle.convention = "pep257"
 
 
 [tool.ruff.lint]
-select = ["E", "F", "C", "D", "W"]
+select = ["E", "F", "C", "W"]
 ignore = []
 
 # Allow fix for all enabled rules (when `--fix`) is provided.
