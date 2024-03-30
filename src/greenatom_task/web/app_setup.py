@@ -20,7 +20,7 @@ async def read_main() -> MsgResponse:
     Returns:
         MsgResponse: The message response instance.
     """
-    return MsgResponse(msg='Welcome to Greenatom-task API!')
+    return MsgResponse(msg='Welcome to API for an interaction with robot!')
 
 
 def initialise_routers(app: FastAPI) -> None:
