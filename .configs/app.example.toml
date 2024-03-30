@@ -8,3 +8,6 @@ description = "Greenatom test task"
 host = "0.0.0.0"
 port = 8000
 log_level = "info"
+
+[db]
+name = "database.db"
