@@ -26,7 +26,13 @@ async def main() -> None:
 
 
 if __name__ == '__main__':
+    loop = asyncio.get_event_loop()
     if sys.platform == 'win32':
         asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
-    loop = asyncio.ProactorEventLoop()
-    loop.run_until_complete(main())
+        loop = asyncio.ProactorEventLoop()
+
+    try:
+        loop.run_until_complete(main())
+    finally:
+        loop.run_until_complete(loop.shutdown_asyncgens())
+        loop.close()
