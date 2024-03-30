@@ -21,8 +21,8 @@ class RobotFacade:
         if self._robot_ps and self._robot_ps.returncode is None:
             raise exceptions.RobotIsAlreadyRunning
 
-        command = f"python {shlex.quote(self.robot_script_path)} -s {start}"
-        type(self)._robot_ps = await asyncio.create_subprocess_shell(command)
+        cmd = ["python", self.robot_script_path, "-s", str(start)]
+        type(self)._robot_ps = await asyncio.create_subprocess_exec(*cmd)
 
     @classmethod
     async def stop_robot(cls) -> None:
