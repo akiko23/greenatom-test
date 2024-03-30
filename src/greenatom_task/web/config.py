@@ -1,5 +1,4 @@
 """Provide classes and functions for loading an application config."""
-
 import logging
 from dataclasses import dataclass
 
@@ -44,16 +43,32 @@ class HttpServerConfig:
 
 
 @dataclass
+class Database:
+    """Represent the database configuration.
+
+    Attributes:
+        name (str): The name of the database.
+    """
+    name: str = "database.db"
+
+    def __post_init__(self) -> None:
+        """Initialise database URI."""
+        self.uri = f"sqlite+aiosqlite:///{self.name}"
+
+
+@dataclass
 class Config:
     """Represent the overall configuration of the project.
 
     Attributes:
         app (AppConfig): The application configuration.
         http_server (HttpServerConfig): The HTTP server configuration.
+        db (Database): The database configuration.
     """
 
     app: AppConfig
     http_server: HttpServerConfig
+    db: Database
 
 
 def load_config(config_path: str) -> Config:
@@ -62,9 +77,10 @@ def load_config(config_path: str) -> Config:
     Returns:
         Config: An instance of the Config class containing the loaded configuration.
     """
-    with open(config_path, 'r') as config_file:
+    with open(config_path, "r") as config_file:
         data = toml.load(config_file)
     return Config(
-        app=AppConfig(**data['app']),
-        http_server=HttpServerConfig(**data['http_server']),
+        app=AppConfig(**data["app"]),
+        http_server=HttpServerConfig(**data["http_server"]),
+        db=Database(**data["db"]),
     )

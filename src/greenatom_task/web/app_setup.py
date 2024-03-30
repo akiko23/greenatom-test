@@ -1,9 +1,13 @@
 """Contain functions required for configuration of the project components."""
+from functools import partial
 
 import uvicorn
 from fastapi import APIRouter, FastAPI
+from sqlalchemy.ext.asyncio import AsyncSession
 
 from greenatom_task.web.config import AppConfig, Config, HttpServerConfig
+from greenatom_task.web.database.dependencies import get_session
+from greenatom_task.web.database.sa_utils import create_session_maker, create_engine
 from greenatom_task.web.depends_stub import Stub
 from greenatom_task.web.dto import MsgResponse
 from greenatom_task.web.robot.dependencies import get_robot_facade
@@ -40,6 +44,10 @@ def initialise_dependencies(app: FastAPI, config: Config) -> None:
         app (FastAPI): The FastAPI instance.
         config (Config): The config instance.
     """
+    engine = create_engine(config.db.uri)
+    session_factory = create_session_maker(engine)
+
+    app.dependency_overrides[Stub(AsyncSession)] = partial(get_session, session_factory)
     app.dependency_overrides[Stub(Config)] = lambda: config
     app.dependency_overrides[Stub(RobotFacade)] = get_robot_facade
 

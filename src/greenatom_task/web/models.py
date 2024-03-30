@@ -2,7 +2,7 @@ from datetime import datetime, timedelta
 
 from sqlalchemy.orm import Mapped, mapped_column
 
-from greenatom_task.database.base import Base
+from greenatom_task.web.database.base import Base
 
 
 class Reports(Base):  # type:ignore[misc]

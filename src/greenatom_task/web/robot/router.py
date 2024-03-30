@@ -1,4 +1,4 @@
-"""Handlers for the 'robot' resource consisting of the controllers only."""
+"""Handlers for the 'robot' resource."""
 from fastapi import APIRouter, Depends, HTTPException, status
 
 from greenatom_task.web.depends_stub import Stub
