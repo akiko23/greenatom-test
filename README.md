@@ -5,9 +5,10 @@ Greenatom test task
 
 ## 🛠 Installation and Usage
 
-1. Clone the project
+1. Clone the project & enter its directory
    ```
    git clone https://github.com/akiko23/greenatom-test
+   cd greenatom-test
    ```
 
 2. Initialise and activate virtual environment (Its supposed that you have preinstalled python and python-virtualenv)
@@ -40,17 +41,19 @@ Greenatom test task
    ruff . --fix
    ```
 
-4. Run the database migrations
+4. Rename **app.example.toml** to **app.toml** or create your own
+
+5. Run the database migrations
    ```
    alembic upgrade head
    ```
 
-5. Run the application
+6. Run the application
    ```
    python -m src.greenatom_task
    ```
 
-6. Check the docs in your browser: <a href="http://localhost:8000/docs">click</a>
+7. Check the docs in your browser: <a href="http://localhost:8000/docs">click</a>
 
 ## 🧰 Tech Stack
 
