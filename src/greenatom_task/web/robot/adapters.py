@@ -1,6 +1,6 @@
 import asyncio
 from asyncio.subprocess import Process
-from datetime import datetime, timedelta
+from datetime import date, datetime, time, timedelta
 from typing import Optional
 
 from sqlalchemy import select
@@ -28,12 +28,25 @@ class ReportRepository:
         return [
             ReportRead(
                 id=report.id,
-                started_at=report.started_at,
-                finished_at=report.started_at + report.duration,
+                started_at=self.datetime_to_time(report.started_at),
+                finished_at=self.datetime_to_time(report.started_at + report.duration),
                 duration=report.duration.total_seconds(),
+                count_start_date=date(
+                    year=report.started_at.year,
+                    month=report.started_at.month,
+                    day=report.started_at.day,
+                ),
             )
             for report in reports.all()
         ]
+
+    @staticmethod
+    def datetime_to_time(datetime_: datetime) -> time:
+        return time(
+            hour=datetime_.hour,
+            minute=datetime_.minute,
+            second=datetime_.second,
+        )
 
 
 class RobotFacade:
