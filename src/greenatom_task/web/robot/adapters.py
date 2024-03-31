@@ -73,7 +73,7 @@ class RobotFacade:
         cls._robot_ps = None
 
     @classmethod
-    async def get_last_launch_data(cls) -> tuple[datetime, int]:
+    async def get_last_launch_data(cls) -> tuple[datetime, timedelta]:
         with open("robot_logs", "r", encoding="utf-8") as f:
             output = f.readline().split()
 
