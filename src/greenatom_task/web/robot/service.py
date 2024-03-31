@@ -21,16 +21,16 @@ class RobotService:
         if robot_ps and robot_ps.returncode is None:
             raise exceptions.RobotIsAlreadyRunning
 
-        await self.robot_facade.start_robot(start)
+        await self.robot_facade.start_robot(start=start)
 
     async def stop_robot(self) -> None:
         robot_ps = self.robot_facade.robot_ps
         if not robot_ps or robot_ps.returncode is not None:
             raise exceptions.RobotIsInactive
 
-        self.robot_facade.stop_robot()
+        await self.robot_facade.stop_robot()
 
-        started_at, duration = self.robot_facade.get_last_launch_data()
+        started_at, duration = await self.robot_facade.get_last_launch_data()
         await self.report_repo.create(
             Report(started_at=started_at, duration=duration)
         )

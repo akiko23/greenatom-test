@@ -25,6 +25,7 @@ dependencies = [
 [project.optional-dependencies]
 dev = [
     "pytest==7.4.3",
+    "pytest-asyncio==0.23.6",
     "httpx==0.25.2",
     "mypy==1.7.1",
     "isort==5.12.0",
@@ -42,6 +43,12 @@ testpaths = [
 pythonpath = [
     ".",
     "src",
+]
+filterwarnings = [
+    "error",
+    "ignore::UserWarning",
+    # note the use of single quote below to denote "raw" strings in TOML
+    'ignore:function ham\(\) is deprecated:DeprecationWarning',
 ]
 
 [tool.ruff]

@@ -28,8 +28,8 @@ class ReportRepository:
         return [
             ReportRead(
                 id=report.id,
-                started_at=self.datetime_to_time(report.started_at),
-                finished_at=self.datetime_to_time(report.started_at + report.duration),
+                started_at=datetime_to_time(report.started_at),
+                finished_at=datetime_to_time(report.started_at + report.duration),
                 duration=report.duration.total_seconds(),
                 count_start_date=date(
                     year=report.started_at.year,
@@ -39,14 +39,6 @@ class ReportRepository:
             )
             for report in reports.all()
         ]
-
-    @staticmethod
-    def datetime_to_time(datetime_: datetime) -> time:
-        return time(
-            hour=datetime_.hour,
-            minute=datetime_.minute,
-            second=datetime_.second,
-        )
 
 
 class RobotFacade:
@@ -76,12 +68,12 @@ class RobotFacade:
         type(self)._robot_ps = await asyncio.create_subprocess_exec(*cmd)
 
     @classmethod
-    def stop_robot(cls) -> None:
+    async def stop_robot(cls) -> None:
         cls._robot_ps.kill()  # type:ignore[union-attr]
         cls._robot_ps = None
 
     @classmethod
-    def get_last_launch_data(cls) -> tuple[datetime, int]:
+    async def get_last_launch_data(cls) -> tuple[datetime, int]:
         with open("robot_logs", "r", encoding="utf-8") as f:
             output = f.readline().split()
 
@@ -89,3 +81,11 @@ class RobotFacade:
         duration = abs(end - start)
 
         return cls.started_at, timedelta(seconds=duration)  # type:ignore[return-value]
+
+
+def datetime_to_time(datetime_: datetime) -> time:
+    return time(
+        hour=datetime_.hour,
+        minute=datetime_.minute,
+        second=datetime_.second,
+    )

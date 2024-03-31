@@ -1,0 +1,11 @@
+# Config file for the app integration tests
+
+[app]
+title = "greenatom-task-test"
+description = "Test app"
+
+[http_server]
+host = "http://test"
+
+[db]
+name = "test.db"

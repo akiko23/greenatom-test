@@ -27,10 +27,9 @@ share/python-wheels/
 *.egg
 MANIFEST
 
-# config files
+# config files I don't want to share
 .configs/db.env
 .configs/app.toml
-.configs/app.docker.toml
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -45,6 +44,7 @@ pip-delete-this-directory.txt
 # Temp files
 robot_logs
 database.db
+test.db
 
 # Unit test / coverage reports
 htmlcov/

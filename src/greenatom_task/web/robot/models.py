@@ -11,3 +11,13 @@ class Report(Base):  # type:ignore[misc]
     id: Mapped[int] = mapped_column(primary_key=True)
     started_at: Mapped[datetime] = mapped_column()
     duration: Mapped[timedelta] = mapped_column()
+
+    # for the unit tests
+    def __eq__(self, other: Base) -> bool:  # love mypy
+        if not isinstance(other, Report):
+            return NotImplemented
+        return (
+            self.id,
+            self.started_at,
+            self.duration
+        ) == (other.id, other.started_at, other.duration)
