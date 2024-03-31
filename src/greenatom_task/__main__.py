@@ -1,6 +1,7 @@
 """Application entry point."""
 
 import asyncio
+import os
 import sys
 
 from greenatom_task.web.app_setup import (
@@ -15,7 +16,7 @@ from greenatom_task.web.consts import DEFAULT_CONFIG_PATH
 
 async def main() -> None:
     """Set up application and start http server."""
-    config = load_config(DEFAULT_CONFIG_PATH)
+    config = load_config(os.getenv("CONFIG_PATH") or DEFAULT_CONFIG_PATH)
     app = create_app(config.app)
 
     initialise_routers(app)

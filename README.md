@@ -2,7 +2,6 @@
 
 Greenatom test [task](https://orange-heidi-97.tiiny.site/)
 
-
 ## 🛠 Installation and Usage
 
 1. Clone the project & enter its directory
@@ -40,8 +39,8 @@ Greenatom test [task](https://orange-heidi-97.tiiny.site/)
    ruff check .
    ```
 
-4. Rename **app.example.toml** to **app.toml** or create your own
-
+4. Rename **app.example.toml** to **app.toml** or create your own and provide its path to environment variable **$CONFIG_PATH**
+<br></br>
 5. Run the database migrations
    ```
    alembic upgrade head
