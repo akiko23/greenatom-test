@@ -26,7 +26,12 @@ class ReportRepository:
         reports = await self.session.scalars(stmt)
 
         return [
-            ReportRead(id=report.id, started_at=report.started_at, duration=report.duration)
+            ReportRead(
+                id=report.id,
+                started_at=report.started_at,
+                finished_at=report.started_at + report.duration,
+                duration=report.duration.total_seconds(),
+            )
             for report in reports.all()
         ]
 
@@ -64,8 +69,8 @@ class RobotFacade:
 
     @classmethod
     def get_last_launch_data(cls) -> tuple[datetime, int]:
-        with open("robot_logs", "r") as f:
-            output = f.readline()
+        with open("robot_logs", "r", encoding="utf-8") as f:
+            output = f.readline().split()
 
         start, end = int(output[0]), int(output[-1])
         duration = end - start

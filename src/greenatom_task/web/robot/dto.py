@@ -1,10 +1,11 @@
 """Contain common dtos"""
-from datetime import datetime, timedelta
+from dataclasses import dataclass
+from datetime import datetime
 
-from pydantic import BaseModel
 
-
-class ReportRead(BaseModel):
+@dataclass
+class ReportRead:
     id: int
     started_at: datetime
-    duration: timedelta
+    finished_at: datetime
+    duration: int  # duration in seconds

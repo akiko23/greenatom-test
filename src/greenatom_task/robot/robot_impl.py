@@ -13,7 +13,7 @@ with open("robot_logs", "w") as f:
 
 while True:
     with open("robot_logs", mode="a") as f:
-        print(counter, end='', file=f)
+        print(counter, end=' ', file=f)
     print(counter)
     time.sleep(1)
     counter += 1

@@ -1,8 +1,9 @@
 """Contain common dtos"""
-from pydantic import BaseModel
+from dataclasses import dataclass
 
 
-class MsgResponse(BaseModel):
+@dataclass
+class MsgResponse:
     """Represent a simple string message response.
 
     Attributes:

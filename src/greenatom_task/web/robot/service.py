@@ -31,7 +31,9 @@ class RobotService:
         self.robot_facade.stop_robot()
 
         started_at, duration = self.robot_facade.get_last_launch_data()
-        await self.report_repo.create(Report(started_at=started_at, duration=duration))
+        await self.report_repo.create(
+            Report(started_at=started_at, duration=duration)
+        )
 
     async def get_robot_reports(self) -> list[ReportRead]:
         reports: list[ReportRead] = await self.report_repo.get_all()
