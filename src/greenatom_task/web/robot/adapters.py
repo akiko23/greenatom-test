@@ -86,6 +86,6 @@ class RobotFacade:
             output = f.readline().split()
 
         start, end = int(output[0]), int(output[-1])
-        duration = end - start
+        duration = abs(end - start)
 
         return cls.started_at, timedelta(seconds=duration)  # type:ignore[return-value]
