@@ -36,9 +36,8 @@ Greenatom test [task](https://orange-heidi-97.tiiny.site/)
 
    3.3. Run linters
    ```
-   mypy -p src -v --follow-imports=normal
-   isort .
-   ruff . --fix
+   mypy -p src.greenatom_task -v --follow-imports=normal
+   ruff check .
    ```
 
 4. Rename **app.example.toml** to **app.toml** or create your own
