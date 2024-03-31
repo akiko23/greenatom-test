@@ -1,8 +1,56 @@
 # Greenatom-test
+
 Greenatom test task
 
-## Stage
-[In development]
+
+## 🛠 Installation and Usage
+
+1. Clone the project
+   ```
+   git clone https://github.com/akiko23/greenatom-test
+   ```
+
+2. Initialise and activate virtual environment (Its supposed that you have preinstalled python and python-virtualenv)
+    ```
+    python -m venv venv
+    .\venv\Scripts\activate
+    ```
+
+3. Install dependencies & distributable package
+   ```
+   pip install .
+   ```
+
+   #### [Optional]
+   3.1. Install dev dependencies
+   ```
+   pip install .[dev]
+   ```
+
+   3.2. Run tests
+   ```
+   pytest .\tests\unit
+   pytest .\tests\integration 
+   ```
+
+   3.3. Run linters
+   ```
+   mypy -p src -v --follow-imports=normal
+   isort .
+   ruff . --fix
+   ```
+
+4. Run the database migrations
+   ```
+   alembic upgrade head
+   ```
+
+5. Run the application
+   ```
+   python -m src.greenatom_task
+   ```
+
+6. Check the docs in your browser: <a href="http://localhost:8000/docs">click</a>
 
 ## 🧰 Tech Stack
 
@@ -13,23 +61,29 @@ Greenatom test task
 ### Backend/low-level part
 
 - [Pydantic](https://docs.pydantic.dev/latest/) - A most popular library for building validation rules;
-- [SQLAlchemy](https://www.sqlalchemy.org/) - An ORM and SQL toolkit that provides easy database interaction from python;
+- [SQLAlchemy](https://www.sqlalchemy.org/) - An ORM and SQL toolkit that provides easy database interaction from
+  python;
 - [Alembic](https://alembic.sqlalchemy.org/en/latest/) - Database migration tool for SQLAlchemy.
 
 ### Testing
+
 - [Pytest](https://docs.pytest.org) - A python testing framework;
 - [Unittest](https://docs.python.org/3/library/unittest.html) - A python builtin library for building unit tests
 
 ### Docs
-- [SwaggerUI](https://github.com/swagger-api/swagger-ui) -  A tool for describing, visualizing and interaction with the API’s resources
+
+- [SwaggerUI](https://github.com/swagger-api/swagger-ui) - A tool for describing, visualizing and interaction with the
+  API’s resources
 
 ## Versioning
 
-The [SemVer](http://semver.org/) is used for versioning. For the versions available, see the [tags on this repository](https://github.com/akiko23/greenatom-test/tags).
+The [SemVer](http://semver.org/) is used for versioning. For the versions available, see
+the [tags on this repository](https://github.com/akiko23/greenatom-test/tags).
 
 ## Authors
 
-> See the list of [contributors](https://github.com/akiko23/greenatom-test/graphs/contributors) who participated in this project.
+> See the list of [contributors](https://github.com/akiko23/greenatom-test/graphs/contributors) who participated in this
+> project.
 
 ## License
 

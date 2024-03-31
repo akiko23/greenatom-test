@@ -5,10 +5,7 @@ from fastapi import FastAPI
 from fastapi.testclient import TestClient
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from greenatom_task.web.app_setup import (
-    create_app,
-    initialise_routers,
-)
+from greenatom_task.web.app_setup import create_app, initialise_routers
 from greenatom_task.web.config import Config
 from greenatom_task.web.depends_stub import Stub
 from greenatom_task.web.robot.adapters import ReportRepository, RobotFacade
