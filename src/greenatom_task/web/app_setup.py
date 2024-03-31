@@ -2,7 +2,7 @@
 from functools import partial
 
 import uvicorn
-from fastapi import APIRouter, FastAPI
+from fastapi import FastAPI
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from greenatom_task.web.config import AppConfig, Config, HttpServerConfig
@@ -12,7 +12,6 @@ from greenatom_task.web.database.sa_utils import (
     create_session_maker,
 )
 from greenatom_task.web.depends_stub import Stub
-from greenatom_task.web.dto import MsgResponse
 from greenatom_task.web.robot.adapters import ReportRepository, RobotFacade
 from greenatom_task.web.robot.dependencies import (
     get_report_repository,
@@ -22,18 +21,6 @@ from greenatom_task.web.robot.dependencies import (
 from greenatom_task.web.robot.router import router as robot_router
 from greenatom_task.web.robot.service import RobotService
 
-router = APIRouter()
-
-
-@router.get('/')
-async def read_main() -> MsgResponse:
-    """Read the root endpoint (Only in testing purposes).
-
-    Returns:
-        MsgResponse: The message response instance.
-    """
-    return MsgResponse(msg='Welcome to API for an interaction with robot!')
-
 
 def initialise_routers(app: FastAPI) -> None:
     """Include all routers to the app.
@@ -41,7 +28,6 @@ def initialise_routers(app: FastAPI) -> None:
     Args:
         app (FastAPI): The FastAPI instance.
     """
-    app.include_router(router)
     app.include_router(robot_router)
 
 
